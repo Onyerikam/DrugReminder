@@ -25,6 +25,7 @@ An app that reminds users to take their drugs on time.
 
 
 ## Project Folder Structure
+
 root/
 |-- assets/
 |   |-- images/
@@ -63,7 +64,6 @@ root/
 |   |   |-- constants.ts
 |   |   |-- helpers.ts
 |   |-- App.tsx
-|   |-- index.tsx
 |-- .gitignore
 |-- package.json
 |-- README.md
