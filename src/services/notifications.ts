@@ -1,32 +1,31 @@
-import { Notifications } from 'expo';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
+
+const DRUG_REMINDER_NOTIFICATION_ID = 'DRUG_REMINDER_NOTIFICATION_ID';
 
 const requestNotificationPermission = async () => {
-  const permission = await Notifications.requestPermissionsAsync();
-  return permission.granted;
+  const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  return permission.status === 'granted';
 };
 
 const scheduleNotification = (title: string, body: string, time: number) => {
-  Notifications.scheduleLocalNotificationAsync({
-    title,
-    body,
-    ios: {
-      sound: true,
+  Notifications.scheduleNotificationAsync({
+    content: {
+      title,
+      body,
     },
-    android: {
-      sound: true,
-      priority: 'high',
-      sticky: false,
-      vibrate: true,
+    trigger: {
+      seconds: time,
     },
-  },
-  {
-    time,
-    repeat: 'day',
   });
 };
 
 const cancelNotification = () => {
-  Notifications.cancelAllScheduledNotificationsAsync();
+  Notifications.cancelScheduledNotificationAsync(DRUG_REMINDER_NOTIFICATION_ID);
 };
 
-export { requestNotificationPermission, scheduleNotification, cancelNotification };
+export {
+  requestNotificationPermission,
+  scheduleNotification,
+  cancelNotification,
+};
